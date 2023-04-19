@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      host: "mongo"
+      port: "27017"
+      database: "neuronalnetworks"
+      username: "admin"
+      password: "password"
+      authentication-database: "admin"
+
+server:
+  port: "8444"
