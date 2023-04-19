@@ -1,4 +1,4 @@
-package mind.map.NeuronalNetworks
+package mind.map.neuronalnetworks
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
