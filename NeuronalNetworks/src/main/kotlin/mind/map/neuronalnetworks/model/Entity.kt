@@ -46,9 +46,9 @@ class Topic(
     @Id
     var id: String = UUID.randomUUID().toString(),
 
-    var type: String = TopicType.TOPIC.name,
+    var type: TopicType = TopicType.TOPIC,
 
-    var color: String = "#000000",
+    var color: TopicColors = TopicColors.APP_DEFAULT,
 
     var weight: TopicWeights = TopicWeights.MEDIUM,
 
