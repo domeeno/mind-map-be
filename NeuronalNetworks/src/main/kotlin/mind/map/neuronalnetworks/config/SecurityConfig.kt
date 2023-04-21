@@ -53,6 +53,5 @@ class SecurityConfig : WebFluxConfigurer {
                 .and()
                 .build()
         }
-
     }
 }

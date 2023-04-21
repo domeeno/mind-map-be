@@ -93,7 +93,7 @@ enum class TopicColors(val color: String) {
     OLIVE("#808000"),
     NAVY("#000080"),
     GRAY("#808080"),
-    SILVER("#C0C0C0"),
+    SILVER("#C0C0C0")
 }
 
 enum class TopicWeights(val weight: Int) {

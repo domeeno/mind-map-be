@@ -25,6 +25,8 @@ services:
         - "8080:8080"
     networks:
       - mind-network
+    depends_on:
+      - postgres
 
   mongo:
     image: mongo
