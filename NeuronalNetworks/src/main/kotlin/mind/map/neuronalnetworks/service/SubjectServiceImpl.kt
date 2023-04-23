@@ -22,8 +22,12 @@ class SubjectServiceImpl(
     private val subjectRepository: SubjectRepository,
     private val topicRepository: TopicRepository
 ) : SubjectService {
+
     override fun getAllSubjects(): Flux<SubjectDTO> {
-        return subjectRepository.findAll().map { it.toSubjectDTO() }
+        // return all sorted by created timestamp ascending
+        return subjectRepository.findAllByOrderByCreateTimestampDesc()
+            .delayElements(java.time.Duration.ofMillis(500))
+            .map { it.toSubjectDTO() }
     }
 
     override fun getSubjectById(id: String): Mono<SubjectDTO> {
@@ -48,7 +52,14 @@ class SubjectServiceImpl(
     }
 
     override fun createSubject(subjectDTO: CreateSubjectDTO): Mono<SubjectDTO> {
-        return topicRepository.save(Topic(topicName = subjectDTO.subjectName, tags = subjectDTO.tags, userId = subjectDTO.userId, type = TopicType.ROOT))
+        return topicRepository.save(
+            Topic(
+                topicName = subjectDTO.subjectName,
+                tags = subjectDTO.tags,
+                userId = subjectDTO.userId,
+                type = TopicType.ROOT
+            )
+        )
             .map { subjectDTO.copy(rootTopic = it.id) }
             .flatMap { subjectRepository.save(it.toSubject()) }
             .map { it.toSubjectDTO() }
@@ -56,7 +67,14 @@ class SubjectServiceImpl(
 
     override fun updateSubject(subjectDTO: SubjectDTO): Mono<SubjectDTO> {
         return subjectRepository.findById(subjectDTO.id)
-            .map { it.copy(subjectName = subjectDTO.subjectName, description = subjectDTO.description, tags = subjectDTO.tags, updateTimestamp = LocalDateTime.now()) }
+            .map {
+                it.copy(
+                    subjectName = subjectDTO.subjectName,
+                    description = subjectDTO.description,
+                    tags = subjectDTO.tags,
+                    updateTimestamp = LocalDateTime.now()
+                )
+            }
             .flatMap { subjectRepository.save(it) }
             .map { it.toSubjectDTO() }
     }

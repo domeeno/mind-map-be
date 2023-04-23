@@ -39,7 +39,7 @@ data class Subject(
 class Topic(
 
     /*
-       This Document stores Subject's topics, in other words this will branch out the subject into multiple topics
+       This Document stores Subject's topics.json, in other words this will branch out the subject into multiple topics.json
        They exist attached to a subject.
     */
 

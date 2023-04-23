@@ -5,6 +5,7 @@ import mind.map.neuronalnetworks.model.SubjectDTO
 import mind.map.neuronalnetworks.model.SubjectSearchDTO
 import mind.map.neuronalnetworks.service.SubjectService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -40,7 +41,7 @@ class SubjectController(
     }
 
     @GetMapping("{subjectId}")
-    fun getSubject(@RequestParam subjectId: String): Mono<SubjectDTO> {
+    fun getSubject(@PathVariable subjectId: String): Mono<SubjectDTO> {
         return subjectService.getSubjectById(subjectId)
     }
 

@@ -29,3 +29,14 @@ data class SubjectSearchDTO(
     val description: String?,
     val tags: List<String>
 )
+
+data class TopicDTO(
+    var id: String = "",
+    var type: TopicType = TopicType.TOPIC,
+    var color: TopicColors = TopicColors.APP_DEFAULT,
+    var weight: TopicWeights = TopicWeights.MEDIUM,
+    var tags: List<String> = arrayListOf(),
+    var parentId: String? = null,
+    var userId: String? = null,
+    var topicName: String = ""
+)
