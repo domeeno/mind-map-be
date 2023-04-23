@@ -1,5 +1,6 @@
 package mind.map.neuronalnetworks.service
 
+import mind.map.neuronalnetworks.model.CreateSubjectDTO
 import mind.map.neuronalnetworks.model.SubjectDTO
 import mind.map.neuronalnetworks.model.SubjectSearchDTO
 import org.springframework.stereotype.Service
@@ -21,7 +22,7 @@ interface SubjectService {
 
     fun getPaginatedSubjectsBySearch(search: String?, page: Int, size: Int): Flux<SubjectSearchDTO>
 
-    fun createSubject(subjectDTO: SubjectDTO): Mono<SubjectDTO>
+    fun createSubject(subjectDTO: CreateSubjectDTO): Mono<SubjectDTO>
 
     fun updateSubject(subjectDTO: SubjectDTO): Mono<SubjectDTO>
 }

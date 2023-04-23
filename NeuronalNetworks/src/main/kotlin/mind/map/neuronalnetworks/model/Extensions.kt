@@ -29,6 +29,16 @@ fun SubjectDTO.toSubject(): Subject {
     )
 }
 
+fun CreateSubjectDTO.toSubject(): Subject {
+    return Subject(
+        userId = userId,
+        subjectName = subjectName,
+        description = description,
+        rootTopic = rootTopic,
+        tags = tags
+    )
+}
+
 fun Subject.toSubjectSearchDTO(): SubjectSearchDTO {
     return SubjectSearchDTO(
         subjectId = id,

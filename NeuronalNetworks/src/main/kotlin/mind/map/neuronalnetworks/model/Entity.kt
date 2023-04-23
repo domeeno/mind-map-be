@@ -15,7 +15,7 @@ data class Subject(
     var subjectName: String = "",
 
     @Field(name = "user_id")
-    var userId: String = "",
+    var userId: String? = "",
 
     var description: String? = "",
 
@@ -52,11 +52,13 @@ class Topic(
 
     var weight: TopicWeights = TopicWeights.MEDIUM,
 
+    var tags: List<String> = arrayListOf(),
+
     @Field(name = "parent_id")
     var parentId: String? = null,
 
     @Field(name = "user_id")
-    var userId: String = "",
+    var userId: String? = "",
 
     @Field(name = "topic_name")
     var topicName: String = "",

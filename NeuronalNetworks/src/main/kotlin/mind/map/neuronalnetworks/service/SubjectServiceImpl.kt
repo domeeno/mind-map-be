@@ -1,7 +1,10 @@
 package mind.map.neuronalnetworks.service
 
+import mind.map.neuronalnetworks.model.CreateSubjectDTO
 import mind.map.neuronalnetworks.model.SubjectDTO
 import mind.map.neuronalnetworks.model.SubjectSearchDTO
+import mind.map.neuronalnetworks.model.Topic
+import mind.map.neuronalnetworks.model.TopicType
 import mind.map.neuronalnetworks.model.toSubject
 import mind.map.neuronalnetworks.model.toSubjectDTO
 import mind.map.neuronalnetworks.model.toSubjectSearchDTO
@@ -39,15 +42,16 @@ class SubjectServiceImpl(
         return subjectRepository.findAllByTags(tags).map { it.toSubjectDTO() }
     }
 
-    // override fun getPaginatedSubjectsBySearch(search: String, page: Int, size: Int): Flux<SubjectSearchDTO> that makes a paginated search
     override fun getPaginatedSubjectsBySearch(search: String?, page: Int, size: Int): Flux<SubjectSearchDTO> {
-        // val pageable: Pageable = PageRequest.of(page, size)
         val pageable: Pageable = PageRequest.of(page, size)
         return subjectRepository.searchByName(search ?: "", pageable).map { it.toSubjectSearchDTO() }
     }
 
-    override fun createSubject(subjectDTO: SubjectDTO): Mono<SubjectDTO> {
-        return subjectRepository.save(subjectDTO.toSubject()).map { it.toSubjectDTO() }
+    override fun createSubject(subjectDTO: CreateSubjectDTO): Mono<SubjectDTO> {
+        return topicRepository.save(Topic(topicName = subjectDTO.subjectName, tags = subjectDTO.tags, userId = subjectDTO.userId, type = TopicType.ROOT))
+            .map { subjectDTO.copy(rootTopic = it.id) }
+            .flatMap { subjectRepository.save(it.toSubject()) }
+            .map { it.toSubjectDTO() }
     }
 
     override fun updateSubject(subjectDTO: SubjectDTO): Mono<SubjectDTO> {
