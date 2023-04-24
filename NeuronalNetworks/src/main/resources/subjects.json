@@ -1,0 +1,92 @@
+[
+  {
+    "id": "",
+    "subjectName": "Computer Science",
+    "userId": null,
+    "description": "The study of computers and computational systems.",
+    "rootTopic": "",
+    "tags": [
+      "computers",
+      "programming",
+      "algorithms",
+      "data structures",
+      "networking",
+      "security"
+    ]
+  },
+  {
+    "id": "",
+    "subjectName": "Software Development",
+    "userId": null,
+    "description": "The process of designing, creating, and maintaining software.",
+    "rootTopic": "",
+    "tags": [
+      "programming",
+      "agile",
+      "testing",
+      "version control",
+      "frameworks",
+      "web development"
+    ]
+  },
+  {
+    "id": "",
+    "subjectName": "DevOps",
+    "userId": null,
+    "description": "A set of practices that combines software development and IT operations.",
+    "rootTopic": "",
+    "tags": [
+      "automation",
+      "continuous delivery",
+      "monitoring",
+      "cloud computing",
+      "containerization",
+      "collaboration"
+    ]
+  },
+  {
+    "id": "",
+    "subjectName": "Artificial Intelligence & Machine Learning",
+    "userId": null,
+    "description": "The development of computer systems that can perform tasks that would normally require human intelligence.",
+    "rootTopic": "",
+    "tags": [
+      "neural networks",
+      "deep learning",
+      "natural language processing",
+      "computer vision",
+      "reinforcement learning",
+      "data analysis"
+    ]
+  },
+  {
+    "id": "",
+    "subjectName": "Algebra",
+    "userId": null,
+    "description": "A branch of mathematics that deals with mathematical symbols and the rules for manipulating these symbols.",
+    "rootTopic": "",
+    "tags": [
+      "linear algebra",
+      "abstract algebra",
+      "number theory",
+      "geometry",
+      "logic",
+      "combinatorics"
+    ]
+  },
+  {
+    "id": "",
+    "subjectName": "Programming Languages",
+    "userId": null,
+    "description": "A formal language that specifies a set of instructions that can be used to produce various kinds of output.",
+    "rootTopic": "",
+    "tags": [
+      "syntax",
+      "semantics",
+      "compilers",
+      "interpreters",
+      "type systems",
+      "concurrency"
+    ]
+  }
+]
