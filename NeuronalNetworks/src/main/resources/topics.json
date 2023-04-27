@@ -1,3 +1,73 @@
 [
-
+  {
+    "id": "",
+    "type": "TOPIC",
+    "color": "APP_DEFAULT",
+    "weight": "MEDIUM",
+    "tags": [
+      "algorithms",
+      "data structures"
+    ],
+    "userId": null,
+    "topicName": "Algorithms and Data Structures"
+  },
+  {
+    "id": "",
+    "type": "TOPIC",
+    "color": "APP_DEFAULT",
+    "weight": "MEDIUM",
+    "tags": [
+      "programming"
+    ],
+    "userId": null,
+    "topicName": "Programming Fundamentals"
+  },
+  {
+    "id": "",
+    "type": "TOPIC",
+    "color": "APP_DEFAULT",
+    "weight": "MEDIUM",
+    "tags": [
+      "computers"
+    ],
+    "userId": null,
+    "topicName": "Computer Architecture and Systems"
+  },
+  {
+    "id": "",
+    "type": "TOPIC",
+    "color": "APP_DEFAULT",
+    "weight": "MEDIUM",
+    "tags": [
+      "networking",
+      "security"
+    ],
+    "userId": null,
+    "topicName": "Networking and Security"
+  },
+  {
+    "id": "",
+    "type": "TOPIC",
+    "color": "APP_DEFAULT",
+    "weight": "MEDIUM",
+    "tags": [
+      "algorithms",
+      "sorting"
+    ],
+    "userId": null,
+    "topicName": "Sorting Algorithms"
+  },
+  {
+    "id": "",
+    "type": "TOPIC",
+    "color": "APP_DEFAULT",
+    "weight": "MEDIUM",
+    "tags": [
+      "algorithms",
+      "data structures",
+      "graphs"
+    ],
+    "userId": null,
+    "topicName": "Graph Data Structures and Algorithms"
+  }
 ]

@@ -24,7 +24,6 @@ class SubjectServiceImpl(
 ) : SubjectService {
 
     override fun getAllSubjects(): Flux<SubjectDTO> {
-        // return all sorted by created timestamp ascending
         return subjectRepository.findAllByOrderByCreateTimestampDesc()
             .delayElements(java.time.Duration.ofMillis(500))
             .map { it.toSubjectDTO() }
