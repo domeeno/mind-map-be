@@ -33,7 +33,5 @@ class GraphLookupRepositoryImpl(
         val aggregation = Aggregation.newAggregation(matchStage, operation)
         return reactiveMongoTemplate.aggregate(aggregation, "topics", Topic::class.java).elementAt(0)
             .flatMapIterable { listOf(it) + it.allTopics }
-            .delayElements(Duration.ofMillis(500))
-            .doOnNext { topic -> log.info("Topic found: {}", topic) }
     }
 }
