@@ -54,6 +54,9 @@ class Topic(
 
     var tags: List<String> = arrayListOf(),
 
+    @Field(name = "subject_id")
+    var subjectId: String,
+
     @Field(name = "parent_id")
     var parentId: String? = null,
 

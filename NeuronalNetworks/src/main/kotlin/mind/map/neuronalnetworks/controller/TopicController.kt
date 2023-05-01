@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @RestController
@@ -22,13 +21,8 @@ class TopicController(
         return "test"
     }
 
-    @GetMapping("tree/{rootTopicId}")
-    fun getTopicTree(@PathVariable rootTopicId: String): Flux<TopicDTO> {
-        return topicService.getTopicTree(rootTopicId)
-    }
-
-    @PostMapping("{rootTopicId}/subtopic")
-    fun createSubtopic(@PathVariable rootTopicId: String, @RequestBody dto: TopicDTO): Mono<TopicDTO> {
-        return topicService.createSubtopic(rootTopicId, dto)
+    @PostMapping("/root/{rootTopicId}")
+    fun createSubtopic(@PathVariable rootTopicId: String, @PathVariable subjectId: String, @RequestBody dto: TopicDTO): Mono<TopicDTO> {
+        return topicService.createSubtopic(rootTopicId, subjectId, dto)
     }
 }

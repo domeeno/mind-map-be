@@ -36,6 +36,7 @@ data class TopicDTO(
     var color: TopicColors = TopicColors.APP_DEFAULT,
     var weight: TopicWeights = TopicWeights.MEDIUM,
     var tags: List<String> = arrayListOf(),
+    var subjectId: String,
     var parentId: String? = null,
     var userId: String? = null,
     var topicName: String = ""
