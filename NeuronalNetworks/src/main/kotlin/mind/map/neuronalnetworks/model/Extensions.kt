@@ -47,28 +47,3 @@ fun Subject.toSubjectSearchDTO(): SubjectSearchDTO {
         tags = tags
     )
 }
-
-fun Topic.toTopicDTO(): TopicDTO {
-    return TopicDTO(
-        id = id,
-        type = type,
-        color = color,
-        weight = weight,
-        tags = tags,
-        parentId = parentId,
-        userId = userId,
-        topicName = topicName
-    )
-}
-
-fun TopicDTO.toTopic(rootTopic: String): Topic {
-    return Topic(
-        type = type,
-        color = color,
-        weight = weight,
-        tags = tags,
-        parentId = rootTopic,
-        userId = userId,
-        topicName = topicName
-    )
-}
