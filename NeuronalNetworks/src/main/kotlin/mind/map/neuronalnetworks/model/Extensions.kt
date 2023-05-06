@@ -47,3 +47,17 @@ fun Subject.toSubjectSearchDTO(): SubjectSearchDTO {
         tags = tags
     )
 }
+
+fun Topic.toTopicDTO(): TopicDTO {
+    return TopicDTO(
+        id = id,
+        type = type,
+        color = color,
+        weight = weight,
+        tags = tags,
+        subjectId = subjectId,
+        parentId = parentId,
+        userId = userId,
+        topicName = topicName
+    )
+}

@@ -24,7 +24,7 @@ class SubjectServiceImpl(
 ) : SubjectService {
 
     override fun getAllSubjects(): Flux<SubjectDTO> {
-        return subjectRepository.findAllByOrderByCreateTimestampDesc()
+        return subjectRepository.findAllByOrderByCreateTimestampAsc()
             .delayElements(java.time.Duration.ofMillis(500))
             .map { it.toSubjectDTO() }
     }
@@ -51,17 +51,20 @@ class SubjectServiceImpl(
     }
 
     override fun createSubject(subjectDTO: CreateSubjectDTO): Mono<SubjectDTO> {
-        return topicRepository.save(
-            Topic(
-                topicName = subjectDTO.subjectName,
-                tags = subjectDTO.tags,
-                userId = subjectDTO.userId,
-                type = TopicType.ROOT
-            )
-        )
-            .map { subjectDTO.copy(rootTopic = it.id) }
-            .flatMap { subjectRepository.save(it.toSubject()) }
-            .map { it.toSubjectDTO() }
+        return subjectRepository.save(subjectDTO.toSubject())
+            .flatMap { savedSubject ->
+                topicRepository.save(
+                    Topic(
+                        topicName = subjectDTO.subjectName,
+                        tags = subjectDTO.tags,
+                        userId = subjectDTO.userId,
+                        type = TopicType.ROOT,
+                        subjectId = savedSubject.id
+                    )
+                ).map {
+                    savedSubject.toSubjectDTO()
+                }
+            }
     }
 
     override fun updateSubject(subjectDTO: SubjectDTO): Mono<SubjectDTO> {
