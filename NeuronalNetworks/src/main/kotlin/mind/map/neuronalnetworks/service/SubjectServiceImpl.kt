@@ -26,23 +26,23 @@ class SubjectServiceImpl(
     override fun getAllSubjects(): Flux<SubjectDTO> {
         return subjectRepository.findAllByOrderByCreateTimestampAsc()
             .delayElements(java.time.Duration.ofMillis(500))
-            .map { it.toSubjectDTO() }
+            .map { it.toSubjectDTO(null) }
     }
 
     override fun getSubjectById(id: String): Mono<SubjectDTO> {
-        return subjectRepository.findById(id).map { it.toSubjectDTO() }
+        return subjectRepository.findById(id).map { it.toSubjectDTO(null) }
     }
 
     override fun getSubjectsByUserId(userId: String): Flux<SubjectDTO> {
-        return subjectRepository.findAllByUserId(userId).map { it.toSubjectDTO() }
+        return subjectRepository.findAllByUserId(userId).map { it.toSubjectDTO(null) }
     }
 
     override fun getSubjectsByTag(tag: String): Flux<SubjectDTO> {
-        return subjectRepository.findAllByTags(tag).map { it.toSubjectDTO() }
+        return subjectRepository.findAllByTags(tag).map { it.toSubjectDTO(null) }
     }
 
     override fun getSubjectsByTags(tags: List<String>): Flux<SubjectDTO> {
-        return subjectRepository.findAllByTags(tags).map { it.toSubjectDTO() }
+        return subjectRepository.findAllByTags(tags).map { it.toSubjectDTO(null) }
     }
 
     override fun getPaginatedSubjectsBySearch(search: String?, page: Int, size: Int): Flux<SubjectSearchDTO> {
@@ -62,7 +62,7 @@ class SubjectServiceImpl(
                         subjectId = savedSubject.id
                     )
                 ).map {
-                    savedSubject.toSubjectDTO()
+                    savedSubject.toSubjectDTO(it.id)
                 }
             }
     }
@@ -78,6 +78,6 @@ class SubjectServiceImpl(
                 )
             }
             .flatMap { subjectRepository.save(it) }
-            .map { it.toSubjectDTO() }
+            .map { it.toSubjectDTO(null) }
     }
 }

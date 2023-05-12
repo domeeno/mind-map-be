@@ -37,7 +37,8 @@ data class TopicDTO(
     var weight: TopicWeights = TopicWeights.MEDIUM,
     var tags: List<String> = arrayListOf(),
     var subjectId: String,
-    var parentId: String? = null,
+    var parentIds: List<String> = arrayListOf(),
+    var childIds: List<String> = arrayListOf(),
     var userId: String? = null,
     var topicName: String = ""
 )
