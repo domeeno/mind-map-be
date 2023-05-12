@@ -42,3 +42,9 @@ data class TopicDTO(
     var userId: String? = null,
     var topicName: String = ""
 )
+
+data class CreateTopicInput(
+    var subjectId: String,
+    var topicName: String,
+    var parentId: String
+)
