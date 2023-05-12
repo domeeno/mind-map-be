@@ -37,7 +37,7 @@ class SecurityConfig : WebFluxConfigurer {
             http
                 .csrf().disable()
                 .authorizeExchange()
-                .pathMatchers("/api/**").permitAll()
+                .pathMatchers("/api/**", "/**").permitAll()
                 .and()
                 .build()
         } else {

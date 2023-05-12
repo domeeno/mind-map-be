@@ -23,6 +23,6 @@ class TopicServiceImpl(
     }
 
     override fun getTopics(): Flux<TopicDTO> {
-       return topicRepository.findAll().map { it.toTopicDTO() }
+        return topicRepository.findAll().map { it.toTopicDTO() }
     }
 }

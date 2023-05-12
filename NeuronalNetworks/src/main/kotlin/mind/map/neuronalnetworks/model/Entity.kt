@@ -76,7 +76,7 @@ class Topic(
     var createTimestamp: LocalDateTime = LocalDateTime.now(),
 
     @Field(name = "update_timestamp")
-    var updateTimestamp: LocalDateTime = LocalDateTime.now(),
+    var updateTimestamp: LocalDateTime = LocalDateTime.now()
 )
 
 enum class TopicType {

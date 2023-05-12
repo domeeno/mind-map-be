@@ -23,5 +23,4 @@ class TopicController(
     fun getTopics(): Flux<TopicDTO> {
         return topicService.getTopics()
     }
-
 }
