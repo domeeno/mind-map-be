@@ -9,8 +9,15 @@ spring:
       authentication-database: "admin"
 
 server:
-  port: "8444"
+  port: "8082"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /network-docs
 
 app:
   security:
-    disable: false
+    disable: true
+
