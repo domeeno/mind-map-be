@@ -7,5 +7,5 @@ import reactor.core.publisher.Flux
 
 @Repository
 interface TopicRepository : ReactiveMongoRepository<Topic, String> {
-    fun findAllBySubjectIdOrderByCreateTimestampDesc(subjectId: String): Flux<Topic>
+    fun findAllBySubjectIdOrderByCreateTimestampAsc(subjectId: String): Flux<Topic>
 }

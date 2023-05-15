@@ -29,14 +29,13 @@ class TopicServiceImpl(
                         parentTopic.childIds = parentTopic.childIds.plus(it.id)
                         topicRepository.save(parentTopic)
                     }
-
             }
 
         return newTopic.concatWith(updateParentTopic).map { it.toTopicDTO() }
     }
 
     override fun getSubjectTopics(subjectId: String): Flux<TopicDTO> {
-        return topicRepository.findAllBySubjectIdOrderByCreateTimestampDesc(subjectId).map {
+        return topicRepository.findAllBySubjectIdOrderByCreateTimestampAsc(subjectId).map {
             it.toTopicDTO()
         }
     }
