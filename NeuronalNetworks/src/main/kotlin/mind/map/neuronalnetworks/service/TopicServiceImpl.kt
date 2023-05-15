@@ -7,6 +7,8 @@ import mind.map.neuronalnetworks.model.toTopicDTO
 import mind.map.neuronalnetworks.repository.TopicRepository
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
+import java.time.LocalDateTime
 
 @Service
 class TopicServiceImpl(
@@ -32,6 +34,22 @@ class TopicServiceImpl(
             }
 
         return newTopic.concatWith(updateParentTopic).map { it.toTopicDTO() }
+    }
+
+    override fun updateTopic(topicId: String, topicDTO: TopicDTO): Mono<TopicDTO> {
+        return topicRepository.findById(topicId)
+            .flatMap {
+                it.topicName = topicDTO.topicName
+                it.color = topicDTO.color
+                it.weight = topicDTO.weight
+                it.parentIds = topicDTO.parentIds
+                it.childIds = topicDTO.childIds
+                it.tags = topicDTO.tags
+                it.documentId = topicDTO.documentId
+                it.updateTimestamp = LocalDateTime.now()
+                it.type = topicDTO.type
+                topicRepository.save(it)
+            }.map { it.toTopicDTO() }
     }
 
     override fun getSubjectTopics(subjectId: String): Flux<TopicDTO> {

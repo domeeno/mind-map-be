@@ -39,6 +39,7 @@ data class TopicDTO(
     var subjectId: String,
     var parentIds: List<String> = arrayListOf(),
     var childIds: List<String> = arrayListOf(),
+    var documentId: String? = null,
     var userId: String? = null,
     var topicName: String = ""
 )

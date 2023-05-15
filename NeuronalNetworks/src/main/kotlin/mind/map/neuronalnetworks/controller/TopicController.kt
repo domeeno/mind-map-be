@@ -6,10 +6,12 @@ import mind.map.neuronalnetworks.service.TopicService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
+import reactor.core.publisher.Mono
 
 @RestController
 @RequestMapping("api/topic")
@@ -25,6 +27,11 @@ class TopicController(
     @PostMapping()
     fun createTopic(@RequestBody createTopicInput: CreateTopicInput): Flux<TopicDTO> {
         return topicService.createTopic(createTopicInput)
+    }
+
+    @PutMapping("{topicId}")
+    fun updateTopic(@PathVariable topicId: String, @RequestBody topicDTO: TopicDTO): Mono<TopicDTO> {
+        return topicService.updateTopic(topicId, topicDTO)
     }
 
     @GetMapping()
