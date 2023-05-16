@@ -1,12 +1,12 @@
 package mind.map.neuronalnetworks.model
 
-fun Subject.toSubjectDTO(): SubjectDTO {
+fun Subject.toSubjectDTO(rootTopicId: String?): SubjectDTO {
     return SubjectDTO(
         id = id,
         subjectName = subjectName,
         userId = userId,
         description = description,
-        rootTopic = rootTopic,
+        rootTopic = rootTopicId ?: rootTopic,
         tags = tags,
         likes = likes,
         saves = saves,
@@ -45,5 +45,20 @@ fun Subject.toSubjectSearchDTO(): SubjectSearchDTO {
         subjectName = subjectName,
         description = description,
         tags = tags
+    )
+}
+
+fun Topic.toTopicDTO(): TopicDTO {
+    return TopicDTO(
+        id = id,
+        type = type,
+        color = color,
+        weight = weight,
+        tags = tags,
+        subjectId = subjectId,
+        parentIds = parentIds,
+        childIds = childIds,
+        userId = userId,
+        topicName = topicName
     )
 }

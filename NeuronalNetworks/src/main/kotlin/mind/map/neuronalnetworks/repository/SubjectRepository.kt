@@ -16,6 +16,5 @@ interface SubjectRepository : ReactiveMongoRepository<Subject, String> {
     @Query("{'subjectName': { \$regex: ?0, \$options: 'i' }}")
     fun searchByName(search: String, pageable: Pageable): Flux<Subject>
 
-    // return all sorted by created timestamp ascending
-    fun findAllByOrderByCreateTimestampDesc(): Flux<Subject>
+    fun findAllByOrderByCreateTimestampAsc(): Flux<Subject>
 }

@@ -22,7 +22,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-    implementation("com.auth0:java-jwt:3.18.2")
+
+    // Swagger
+    implementation("org.springdoc:springdoc-openapi-data-rest:1.7.0")
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.7.0")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.7.0")
+    implementation("org.springdoc:springdoc-openapi-hateoas:1.7.0")
+
+    implementation("com.auth0:java-jwt:4.3.0")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

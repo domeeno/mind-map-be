@@ -57,9 +57,6 @@ class Topic(
     @Field(name = "subject_id")
     var subjectId: String,
 
-    @Field(name = "parent_id")
-    var parentId: String? = null,
-
     @Field(name = "user_id")
     var userId: String? = "",
 
@@ -69,6 +66,9 @@ class Topic(
     @Field(name = "child_ids")
     var childIds: List<String> = arrayListOf(),
 
+    @Field(name = "parents_id")
+    var parentIds: List<String> = arrayListOf(),
+
     @Field(name = "document_id")
     var documentId: String? = null,
 
@@ -76,13 +76,7 @@ class Topic(
     var createTimestamp: LocalDateTime = LocalDateTime.now(),
 
     @Field(name = "update_timestamp")
-    var updateTimestamp: LocalDateTime = LocalDateTime.now(),
-
-    // functional fields
-    @Field(name = "all_topics")
-    var allTopics: List<Topic> = emptyList(),
-
-    var childTopics: List<Topic> = emptyList()
+    var updateTimestamp: LocalDateTime = LocalDateTime.now()
 )
 
 enum class TopicType {

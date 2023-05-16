@@ -24,25 +24,25 @@ class SubjectServiceImpl(
 ) : SubjectService {
 
     override fun getAllSubjects(): Flux<SubjectDTO> {
-        return subjectRepository.findAllByOrderByCreateTimestampDesc()
+        return subjectRepository.findAllByOrderByCreateTimestampAsc()
             .delayElements(java.time.Duration.ofMillis(500))
-            .map { it.toSubjectDTO() }
+            .map { it.toSubjectDTO(null) }
     }
 
     override fun getSubjectById(id: String): Mono<SubjectDTO> {
-        return subjectRepository.findById(id).map { it.toSubjectDTO() }
+        return subjectRepository.findById(id).map { it.toSubjectDTO(null) }
     }
 
     override fun getSubjectsByUserId(userId: String): Flux<SubjectDTO> {
-        return subjectRepository.findAllByUserId(userId).map { it.toSubjectDTO() }
+        return subjectRepository.findAllByUserId(userId).map { it.toSubjectDTO(null) }
     }
 
     override fun getSubjectsByTag(tag: String): Flux<SubjectDTO> {
-        return subjectRepository.findAllByTags(tag).map { it.toSubjectDTO() }
+        return subjectRepository.findAllByTags(tag).map { it.toSubjectDTO(null) }
     }
 
     override fun getSubjectsByTags(tags: List<String>): Flux<SubjectDTO> {
-        return subjectRepository.findAllByTags(tags).map { it.toSubjectDTO() }
+        return subjectRepository.findAllByTags(tags).map { it.toSubjectDTO(null) }
     }
 
     override fun getPaginatedSubjectsBySearch(search: String?, page: Int, size: Int): Flux<SubjectSearchDTO> {
@@ -51,17 +51,20 @@ class SubjectServiceImpl(
     }
 
     override fun createSubject(subjectDTO: CreateSubjectDTO): Mono<SubjectDTO> {
-        return topicRepository.save(
-            Topic(
-                topicName = subjectDTO.subjectName,
-                tags = subjectDTO.tags,
-                userId = subjectDTO.userId,
-                type = TopicType.ROOT
-            )
-        )
-            .map { subjectDTO.copy(rootTopic = it.id) }
-            .flatMap { subjectRepository.save(it.toSubject()) }
-            .map { it.toSubjectDTO() }
+        return subjectRepository.save(subjectDTO.toSubject())
+            .flatMap { savedSubject ->
+                topicRepository.save(
+                    Topic(
+                        topicName = subjectDTO.subjectName,
+                        tags = subjectDTO.tags,
+                        userId = subjectDTO.userId,
+                        type = TopicType.ROOT,
+                        subjectId = savedSubject.id
+                    )
+                ).map {
+                    savedSubject.toSubjectDTO(it.id)
+                }
+            }
     }
 
     override fun updateSubject(subjectDTO: SubjectDTO): Mono<SubjectDTO> {
@@ -75,6 +78,6 @@ class SubjectServiceImpl(
                 )
             }
             .flatMap { subjectRepository.save(it) }
-            .map { it.toSubjectDTO() }
+            .map { it.toSubjectDTO(null) }
     }
 }
