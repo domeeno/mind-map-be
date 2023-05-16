@@ -10,6 +10,12 @@ import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.web.reactive.config.CorsRegistry
 import org.springframework.web.reactive.config.WebFluxConfigurer
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.security.KeyFactory
+import java.security.interfaces.RSAPublicKey
+import java.security.spec.X509EncodedKeySpec
+import java.util.Base64
 
 @Configuration
 @EnableWebFluxSecurity
@@ -17,6 +23,9 @@ class SecurityConfig : WebFluxConfigurer {
 
     @Value("\${app.security.disable:false}")
     private val disableSecurity: Boolean = false
+
+    @Value("\${app.security.public-key}")
+    private val publicKey: String = ""
 
     override fun addCorsMappings(corsRegistry: CorsRegistry) {
         corsRegistry.addMapping("/**")
@@ -27,8 +36,15 @@ class SecurityConfig : WebFluxConfigurer {
 
     @Bean
     fun jwtDecoder(): ReactiveJwtDecoder {
-        return NimbusReactiveJwtDecoder.withJwkSetUri("http://localhost:8080/realms/realmap/protocol/openid-connect/certs")
-            .build()
+        val publicKey = Files.readString(Paths.get("").resolve(publicKey).normalize().toAbsolutePath())
+        val keyBytes = Base64.getDecoder().decode(publicKey)
+
+        val keySpec = X509EncodedKeySpec(keyBytes)
+        val keyFactory = KeyFactory.getInstance("RSA")
+
+        val keySource = keyFactory.generatePublic(keySpec) as RSAPublicKey
+
+        return NimbusReactiveJwtDecoder(keySource)
     }
 
     @Bean

@@ -6,6 +6,14 @@ import org.springframework.data.mongodb.core.mapping.Field
 import java.time.LocalDateTime
 import java.util.UUID
 
+@Document("documents")
+data class Document(
+    @Id
+    var id: String = UUID.randomUUID().toString(),
+
+    var content: String = ""
+)
+
 @Document
 data class Subject(
     @Id
@@ -36,7 +44,7 @@ data class Subject(
 )
 
 @Document("topics")
-class Topic(
+data class Topic(
 
     /*
        This Document stores Subject's topics.json, in other words this will branch out the subject into multiple topics.json
@@ -70,13 +78,16 @@ class Topic(
     var parentIds: List<String> = arrayListOf(),
 
     @Field(name = "document_id")
-    var documentId: String? = null,
+    var documentId: String = UUID.randomUUID().toString(),
 
     @Field(name = "create_timestamp")
     var createTimestamp: LocalDateTime = LocalDateTime.now(),
 
     @Field(name = "update_timestamp")
-    var updateTimestamp: LocalDateTime = LocalDateTime.now()
+    var updateTimestamp: LocalDateTime = LocalDateTime.now(),
+
+    @Field(name = "child_topics")
+    var childTopics: List<Topic>? = arrayListOf()
 )
 
 enum class TopicType {

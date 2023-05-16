@@ -20,4 +20,4 @@ springdoc:
 app:
   security:
     disable: true
-
+    public-key: "/keys/keycloak.pub"

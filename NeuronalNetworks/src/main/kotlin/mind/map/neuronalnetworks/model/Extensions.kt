@@ -59,6 +59,7 @@ fun Topic.toTopicDTO(): TopicDTO {
         parentIds = parentIds,
         childIds = childIds,
         userId = userId,
-        topicName = topicName
+        topicName = topicName,
+        documentId = documentId
     )
 }

@@ -28,6 +28,18 @@ services:
     depends_on:
       - postgres
 
+  subject-service:
+    image: dominic02/subject
+    ports:
+      - "8082:8082"
+    depends_on:
+      - mongo
+    networks:
+      - mind-network
+    container_name: subject-service
+    cap_add:
+      - NET_ADMIN
+
   mongo:
     image: mongo
     restart: always

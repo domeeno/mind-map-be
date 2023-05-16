@@ -39,6 +39,7 @@ data class TopicDTO(
     var subjectId: String,
     var parentIds: List<String> = arrayListOf(),
     var childIds: List<String> = arrayListOf(),
+    var documentId: String,
     var userId: String? = null,
     var topicName: String = ""
 )
@@ -47,4 +48,8 @@ data class CreateTopicInput(
     var subjectId: String,
     var topicName: String,
     var parentId: String
+)
+
+data class DocumentDTO(
+    var content: String
 )

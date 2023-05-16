@@ -1,4 +1,4 @@
-FROM openjdk:17.0.2
+FROM openjdk:17.0.2-jdk-slim
 
 EXPOSE 8444
 
@@ -7,5 +7,7 @@ CMD ["./gradlew", "bootJar"]
 ENV spring.profiles.active="docker"
 
 COPY "/build/libs/NeuronalNetworks-0.0.1-SNAPSHOT.jar" "subject.jar"
+
+COPY "/src/main/resources/keys" "/keys"
 
 CMD ["java", "-jar", "-Djava.security.egd=file:/dev/./urandom", "subject.jar"]
