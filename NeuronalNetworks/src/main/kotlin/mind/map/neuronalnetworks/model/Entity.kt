@@ -36,7 +36,7 @@ data class Subject(
 )
 
 @Document("topics")
-class Topic(
+data class Topic(
 
     /*
        This Document stores Subject's topics.json, in other words this will branch out the subject into multiple topics.json

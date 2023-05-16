@@ -181,4 +181,64 @@ class TopicServiceImpl(
                     }
             }
     }
+
+    override fun moveTopic(topicId: String, parentTopicId: String, moveBranch: Boolean?): Mono<Boolean> {
+        return topicRepository.findById(topicId)
+            .flatMap { movingTopic ->
+                if (movingTopic.type == TopicType.ROOT) {
+                    Mono.error(Exception("Cannot move root topic"))
+                } else {
+                    topicRepository.findById(parentTopicId)
+                        .flatMap { parentTopic ->
+                            if (parentTopic.type == TopicType.ROOT) {
+                                Mono.error(Exception("Cannot move root topic"))
+                            } else {
+                                swapTopics(movingTopic, parentTopic)
+                            }
+                        }
+                }
+            }
+    }
+
+    private fun swapTopics(movingTopic: Topic, parentTopic: Topic): Mono<Boolean> {
+        val movingTopicChild = mutableListOf<String>()
+        return topicRepository.findById(parentTopic.parentIds[0])
+            .flatMap { grandParentTopic ->
+                graphLookupRepository.getBranch(movingTopic.id)
+                    .flatMapIterable { branch ->
+                        branch.childTopics
+                    }
+                    .filter { it.id != movingTopic.id }
+                    .flatMap { childTopic ->
+                        childTopic.parentIds = listOf(parentTopic.id)
+                        movingTopicChild.add(childTopic.id)
+                        topicRepository.save(childTopic)
+                    }
+                    .collectList()
+                    .flatMap {
+                        movingTopic.childIds = parentTopic.childIds.filter { refId -> refId != movingTopic.id }
+                        movingTopic.childIds = movingTopic.childIds.plus(parentTopic.id)
+                        movingTopic.parentIds = listOf(grandParentTopic.id)
+                        topicRepository.save(movingTopic)
+                    }
+                    .flatMap {
+                        topicRepository.findAllById(it.childIds)
+                            .flatMap { otherChildTopic ->
+                                otherChildTopic.parentIds = listOf(it.id)
+                                topicRepository.save(otherChildTopic)
+                            }.then(Mono.just(it))
+                    }
+                    .flatMap {
+                        parentTopic.parentIds = listOf(movingTopic.id)
+                        parentTopic.childIds = movingTopicChild
+                        topicRepository.save(parentTopic)
+                    }
+                    .flatMap {
+                        grandParentTopic.childIds = grandParentTopic.childIds.filter { refId -> refId != parentTopic.id }
+                        grandParentTopic.childIds = grandParentTopic.childIds.plus(movingTopic.id)
+                        topicRepository.save(grandParentTopic)
+                    }
+            }
+            .thenReturn(true)
+    }
 }

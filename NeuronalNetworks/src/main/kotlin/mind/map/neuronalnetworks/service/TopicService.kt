@@ -21,4 +21,6 @@ interface TopicService {
     fun deleteTopic(topicId: String, newParentId: String?): Mono<String>
 
     fun deleteTopicBranch(topicId: String): Mono<String>
+
+    fun moveTopic(topicId: String, parentTopicId: String, moveBranch: Boolean?): Mono<Boolean>
 }

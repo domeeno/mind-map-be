@@ -36,6 +36,15 @@ class TopicController(
         return topicService.updateTopic(topicId, topicDTO)
     }
 
+    @PutMapping("{topicId}/to/{parentTopicId}")
+    fun moveTopic(
+        @PathVariable topicId: String,
+        @PathVariable parentTopicId: String,
+        @RequestParam moveBranch: Boolean?
+    ): Mono<Boolean> {
+        return topicService.moveTopic(topicId, parentTopicId, moveBranch)
+    }
+
     @DeleteMapping("{topicId}")
     fun deleteTopicBranch(
         @PathVariable topicId: String,
